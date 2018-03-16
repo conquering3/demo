@@ -1,0 +1,8 @@
+CACHE MANIFEST
+# 缓存文件
+./js/app.js
+
+NETWORK:
+# 不缓存文件
+FALLBACK:
+# 加载不到文件 跳转

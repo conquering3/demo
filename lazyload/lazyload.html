@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <ul id="ul"></ul>
+    <script>
+        var ul = document.getElementById('ul'),
+            li = document.createElement('li'),
+            i = 0,
+            winH  = window.innerHeight,
+            lazyLoad = function (e) {
+            e.stopPropagation();
+            console.log('load');
+                var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                console.log(scrollTop + winH,
+                    ul.scrollHeight);
+                if(scrollTop + winH + 200 >= ul.scrollHeight) {
+                    var perLi = li.cloneNode();
+                    perLi.style.backgroundColor = 'rgb(' + Math.floor(Math.random()*256) + ','
+                                                                    + Math.floor(Math.random()*256) + ', '
+                                                                    + Math.floor(Math.random()*256) + ')';
+                    perLi.innerHTML = i++;
+                    ul.appendChild(perLi);
+                }
+            };
+        ul.style.listStyle = 'none';
+        li.style.height = '20px';
+        for(var j = 0; ; j++) {
+            var perLi = li.cloneNode();
+            perLi.innerHTML = i++;
+            perLi.style.backgroundColor = 'rgb(' + Math.floor(Math.random()*256) + ','
+                + Math.floor(Math.random()*256) + ', '
+                + Math.floor(Math.random()*256) + ')';
+            ul.appendChild(perLi);
+            if(ul.scrollHeight > winH) {
+                break;
+            }
+        }
+        window.addEventListener('wheel', lazyLoad);
+    </script>
+</body>
+</html>
