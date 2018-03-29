@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <title>zrender</title>
+    <style>
+        .container {
+            width: 500px;
+            height: 500px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+    <body>
+    <div class="container">
+    </div>
+    <script src="./zrender.min.js"></script>
+    <script>
+        (function (zrender) {
+            var zr = zrender.init(document.querySelector('.container'));
+            var zcircle = new zrender.Circle({
+                shape: {
+                    cx: 250,
+                    cy: 250,
+                    r: 100
+                },
+                style: {
+                    fill: 'transparent',
+                    stroke: '#f00'
+                }
+            });
+            var zdot = new zrender.Circle({
+                shape: {
+                    cx: 150,
+                    cy: 250,
+                    r: 10
+                }
+            });
+            zr.add(zcircle);
+            zr.add(zdot);
+            /*
+            * @params area: 象线 0, 1, 2, 3 从左逆时针数
+            * @params direction: 方向 0 逆时针 1 顺时针
+            * @params cx、cy、r 圆坐标、半径
+            * @params startX、startY 初始坐标
+            * @description 每条移动一个px
+            * */
+            var createNextPoint = function (cx, cy, r, startX, startY, direction) {
+                var area,
+                    upY = r - cy,
+                    downY = r + cy,
+                    px = 4,
+                    nextX,
+                    nextY;
+                area = (cx > startX)
+                        ?(cy >= startY? 0: 3)
+                        :(cy >= startY? 1: 2);
+                console.log('area:', area);
+                if (area === 0 || area === 3) {
+                    if (direction) {
+                        if (startY + px > downY) {
+                            nextY = startY - px;
+                            nextX = cx + getX(r, Math.abs(cy - nextY));
+                        }
+                        else {
+                            nextY = startY + px;
+                            nextX = cx - getX(r, Math.abs(cy - nextY));
+                        }
+                    }
+                    else {
+                        if (startY - px < upY) {
+                            nextY = startY + px;
+                            nextX = cx + getX(r, Math.abs(cy - nextY));
+                        }
+                        else {
+                            nextY = startY - px;
+                            nextX = cx - getX(r, Math.abs(cy - nextY));
+                        }
+                    }
+
+                }
+                else if (area === 1 || area === 2) {
+                    if (direction) {
+                        if (statrY - px < upY) {
+                            nextY = startY + px;
+                            nextX = cx - getX(r, Math.abs(cy - nextY));
+                        }
+                        else {
+                            nextY = startY - px;
+                            nextX = cx + getX(r, Math.abs(cy - nextY));
+                        }
+                    }
+                    else {
+                        if (startY + px > downY) {
+                            nextY = startY - px;
+                            nextX = cx - getX(r, Math.abs(cy - nextY));
+                        }
+                        else {
+                            nextY = startY + px;
+                            nextX = cx + getX(r, Math.abs(cy - nextY));
+                        }
+                    }
+                }
+                return {
+                    cx: nextX,
+                    cy: nextY
+                }
+            };
+            // 平方跟 X*X + Y*Y = R*R 获取X距离R的长度
+            var getX = function (R, Y) {
+                return Math.sqrt(Math.pow(R, 2) - Math.pow(Y, 2));
+            };
+            var zAnimate = zdot.animate('shape', true);
+            var nextX = 150,
+                nextY = 250;
+            for (var i = 0; i < 100; i++) {
+                var obj = createNextPoint(250, 250, 100, nextX, nextY, 0);
+                nextX = obj.cx;
+                nextY = obj.cy;
+                zAnimate.when(50*i, obj);
+            }
+            zAnimate.start();
+        })(zrender);
+    </script>
+    </body>
+</html>

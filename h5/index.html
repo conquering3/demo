@@ -7,6 +7,28 @@
         <!--[if lt IE 9]>
         <script src="http://cdn.static.runoob.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
         <![endif]-->
+        <style>
+            .progress-wrapper {
+                overflow: hidden;
+            }
+            .progress-wrapper .progress,
+            .progress-wrapper .text {
+                display: inline-block;
+                vertical-align: middle;
+            }
+            .progress-wrapper .progress {
+               /* width: 100%;
+                height: 18px;
+                background-color: #f00;
+                margin-right: -100px;*/
+            }
+            .progress-wrapper .text {
+                width: 100%;
+                height: 18px;
+                background-color: #f00;
+                margin-right: -100px;
+            }
+        </style>
     </head>
     <body>
         <details>
@@ -37,5 +59,12 @@
             <option value="Safari">
         </datalist>
         <script src="./js/app.js"></script>
+        <!--
+            width： 100%， 使用margin-right：-100px,是两个inline-block同行
+             -->
+    <div class="progress-wrapper">
+        <div class="progress">3124</div>
+        <div class="text">eqwr</div>
+    </div>
     </body>
 </html>
