@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p id="txt">helloworld</p>
+    <script>
+        document.onmouseup = document.ondbclick= function(){
+            var txt;
+            if(document.selection){
+                txt = document.selection.createRange().text
+            }
+            else{
+                txt = window.getSelection() + '';
+            }
+            if(txt){alert(txt)}
+        }
+        var a = [3,4,5,6,7,8,8,6,3,4,5]
+        var map = {}
+        for (var i = a.length; i >= 0; i--) {
+            if (a[i] in map) {
+                a.splice(i, 1);
+            }
+            else {
+                map[a[i]] = true;
+            }
+        }
+        console.log(a);
+    </script>
+</body>
+</html>

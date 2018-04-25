@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 
+        引入外部js
+        延迟defer 
+        dom加载完毕后执行
+    -->
+    <script defer src="./defer/defer.js">
+    </script>
+</head>
+<body>
+    <noscript>
+        <p>本页面需要开启javascript</p>
+    </noscript>
+    <script>
+        console.log('未添加defer!');
+    </script>
+    <!-- 
+        引入外部文件， 添加async执行异步操作
+     -->
+    <script src="./async/a.js" async>
+    </script>
+    <script src="./async/b.js">
+    </script>
+    <button id="btn">1213</button>
+    <div id="container" style="width: 400px;height: 400px; border: 10px solid #f00;"></div>
+    <script>
+        let das = function (man) {
+            console.log(arguments);
+        }
+        das('12');
+        let vals = [];
+        for (let i = 0; i < 10; i++) {
+            vals[i] = function () {
+                console.log(i);
+                return i;
+            }
+        }
+        let btnClick = () => {
+            let btn = document.getElementById('btn');
+            let id = btn.id;
+            btn.onclick = () => {
+                console.log(id);
+            }
+            btn = null;
+        };
+        // console.log(top);
+        //console.log(parent);
+        let childWin = window.open('', '_self');
+        console.log(childWin);
+        // childWin.document.body.style.background = '#f00';
+        childWin.resizeTo(100, 100);
+        childWin.moveTo(10, 10);
+        console.log(childWin.screenLeft);
+        console.log(childWin.screenX);
+        let container = document.querySelector('#container');
+        console.log('innerWidth: ', container);
+        console.log(document.compatMode);
+    </script>
+</body>
+</html>

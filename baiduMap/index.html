@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="map" style="height: 600px;">
+    </div>
+    <div>
+        <input id="search-val" type="text"><button id="btn">确认</button>
+    </div>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=qRep49QkLSZqpPSDLQ7L8rAoiqlQGVKp"></script>
+    <script>
+        var map = new BMap.Map("map");
+        map.centerAndZoom('深圳市', 11);
+        map.enableScrollWheelZoom();
+
+        var local = (function (map) {
+                var points = [],
+                    markers = [];
+
+                return new BMap.LocalSearch(map, {
+                renderOptions: {
+                    map: map,
+                    selectFirstResult: false
+                },
+                onMarkersSet: function (originData) {
+                    // console.log(originData);
+                    markers.map(function (item, i) {
+                        map.removeOverlay(item);
+                    });
+                    points = [];
+                    markers = [];                  
+                    originData.map(function (item, i) {
+                        points.push([item.point.lng, item.point.lat]);
+                        map.removeOverlay(item.marker);
+                    });
+
+                    points.map(function (point, i) {
+                        var marker = new BMap.Marker(new BMap.Point(point[0], point[1]), {
+                            title: originData[i].title
+                        });
+                        map.addOverlay(marker);
+                        markers.push(marker);
+                    });
+                },
+                onInfoHtmlSet: function (info) {
+                    // console.log(info);
+                },
+                onResultsHtmlSet (resultHTML) {
+                    // console.log(resultHTML);
+                },
+                pageCapacity: 5,
+                onSearchComplete (arr) {
+                }
+            });
+        })(map);
+
+        var btn = document.getElementById('btn'),
+            input = document.getElementById('search-val');
+
+        btn.onclick = function () {
+            local.search(input.value);
+        }
+    </script>
+</body>
+</html>
