@@ -1,0 +1,49 @@
+.flex {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: -moz-flex;
+    display: flex;
+    height: 400px;
+    /* width: 30px; */
+    /*  排列方向 row || row-reverse || column || column-reverse */
+    /* flex-direction: row;  */
+    /* 换行规则 nowrap || wrap || wrap-reverse */
+    /* flex-wrap: wrap;  */
+    /* 组合 */
+    flex-flow: row wrap;
+    /* 主轴（x轴）对齐方式 */
+    justify-content: space-around;
+    /* 交叉轴（y轴）对齐方式 */
+    align-items: center;
+    /* 多交叉轴对齐方式 */
+    align-content: center;
+    text-align: center;
+}
+.flex-item {
+    /* width: 30px; */
+    height: 30px;
+    border: 1px solid #ccc;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 100;
+}
+/* 
+ * 1.  order 项的排序
+ * 2. flex-frow: 比例
+ * 3. flex-shrink 缩放比例
+ * 4. flex-basis 主轴的占据的宽度，
+ * 5. flex 2,3,4 合并值
+ * 6. algin-self 单项的交叉轴对齐方式
+ */
+.flex-item:nth-child(1) {
+    order: 1;
+    flex-grow: 1;
+}
+.flex-item:nth-child(2) {
+    order: 0;
+    flex-grow: 2;
+}
+.flex-item:nth-child(3) {
+    order: 2;
+    flex-grow: 1;
+}

@@ -15,7 +15,8 @@
                 txt = document.selection.createRange().text
             }
             else{
-                txt = window.getSelection() + '';
+                console.log(window.getSelection());                
+                txt = window.getSelection().toString();
             }
             if(txt){alert(txt)}
         }

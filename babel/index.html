@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script> -->
+</head>
+<body>
+    <div id="app">123{{123}}</div>
+    <script type="text/javascript">
+        /* let fn = () => {
+            console.log('hello world!');
+        }
+
+        fn(); */
+        /* let reg = /\{\{(\s*([^}]+\S)\s*)\}\}/;
+        console.log('{{ hello }}'.match(reg)); */
+        var textContent = document.getElementById('app').textContent;
+        console.log(textContent);
+        var str = {
+            world: '312'
+        };
+        Object.defineProperty(str, 'hello', {
+            value: 1231,
+            writable: true
+        });
+        str.hello = 'heool';
+        console.log(str);
+    </script>
+</body>
+</html>
