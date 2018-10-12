@@ -1,55 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh_cn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>对象连续符操作</title>
+    <title>Document</title>
 </head>
 <body>
-    <script>
-        /**
-        *使用结构体,结构体实例化,每个结构体里面的方法都返回结构体实例化对象
-        */
-        var FN = function () {
-            var that = this;
-
-            this.flag = false;
-            this.result = 1;
-            this.timer;
-            this.timer2;
-            this.then = function (fn) {
-                that.timer = setInterval(function () {
-                    if (that.flag) {
-                        clearInterval(that.timer);
-                        fn(that.result);
-                    }
-                }, 100);
-                return that; 
-            };
-            this.catch1 = function (fn) {
-                that.timer2 = setInterval(function () {
-                    if (that.flag) {
-                        fn(123);
-                        clearInterval(that.timer2);
-                    }
-                }, 100);
-                return that;
-            };
-            this.fn = function () {
-                setTimeout(function () {
-                    that.flag = true;
-                }, 2000);
-                return that;
-            };
-        }
-        var fn = new FN().fn;
-        console.log(FN.prototype);
-        fn(1).then(function (result) {
-            console.log(result);
-        }).catch1(function (result) {
-            console.log(result);
-        });
-    </script>
+    <script src="./index.js"></script>
 </body>
 </html>

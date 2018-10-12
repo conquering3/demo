@@ -17,7 +17,7 @@ let config = {
         inline: true,
         hot: false, // 会和模块重叠
         host: 'localhost',
-        port: '9002',
+        port: 8081,
         open: false,
         overlay: { warnings: false, errors: true }
         

@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="zh_cn" manifest="./manifest.appcache">
-
+<!-- <!DOCTYPE html> -->
 <head>
     <meta charset="UTF-8">
     <title>h5 demo</title>
@@ -9,6 +7,9 @@
         <script src="http://cdn.static.runoob.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
         <![endif]-->
     <style>
+        html {
+            font-size: 87.5%;
+        }
         .progress-wrapper {
             overflow: hidden;
         }
@@ -32,11 +33,50 @@
             background-color: #f00;
             margin-right: -100px;
         }
+        .box {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+        }
+        .box1 {
+            background: #f00;
+        }
+        .box2 {
+            background: #0f0;
+        }
+        .box3 {
+            background: #00f;
+        }
+        .container {
+            clear: both;   
+        }
+        .container .left-sider {
+            float: left;
+            width: 20%;
+            height: 30px;
+            border: 1px solid #f00;
+            clear: left;
+        }
+        .container .main {
+            height: 100px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+        }
+        .ov-box {
+            padding: 80px 0 0 0;
+            text-indent: 5000px;
+            border: 1px solid #f00;
+            background: url(img2.png);
+        }
     </style>
 </head>
 
 <body>
-    <p><span style="line-height: 100px; font-size: 16px;">在线车辆数</span><span style="line-height: 100px;font-size: 30px;">31232134</span></p>
+    <div class="ov-box">你看不见我</div>
+    <div class="box box1"></div>
+    <div class="box box2"></div>
+    <div class="box box3"></div>
+    <p style="font-size: 85%;"><span style="line-height: 100px; font-size: 100%">在线车辆数</span><span style="line-height: 100px;font-size: 30px;">31232134</span></p>
     <details>
         <summary>Copyright 1999-2011.</summary>
         <p> - by Refsnes Data. All Rights Reserved.</p>
@@ -46,7 +86,8 @@
     <p class="content"></p>
     <video width="320" height="240" controls="controls">
         <source src="movie.ogg" type="video/ogg">
-        <source src="movie.mp4" type="video/mp4"> Your browser does not support the video tag.
+        <source src="movie.mp4" type="video/mp4"> 
+        Your browser does not support the video tag.
     </video>
     <p draggable="true">1231</p>
     <p draggable="true">31241</p>
@@ -54,7 +95,7 @@
     <div style="width: 200px;height: 200px;background-color: red" ondrag="function (ev) {
             ev.preventDefault();
         }"></div>
-    <input type="text" required>
+    <input type="text" required id="input-text">
     <input list="browsers" name="browser">
     <datalist id="browsers">
         <option value="Internet Explorer">
@@ -75,6 +116,44 @@
     </div>
     <div id="step">
     </div>
+    <div class="container">
+        <div class="left-sider"></div>
+        <div class="main"></div>
+    </div>
+    <blockquote cite="http://www.somewebsite.com/path/to/page.html"
+    <p>Misquotations are the only quotations that are never
+    misquoted.</p>
+    <p>&#8212; Hesketh Pearson </p>
+    </blockquote>
+    <script>
+        document.querySelector('#input-text').onfocus = function () {
+            this.select();
+            console.log(this.selectionStart, this.selectionEnd);
+        }
+        var beforeVal = '';
+        document.querySelector('#input-text').onkeydown = function (e) {
+            e = e || window.event;
+            console.log(this.value);
+            if (!~[48,49,50,51,52,53,54,55,56,57,96,97,98,99,100,101,102,103,104,105,8].indexOf(e.keyCode)) {
+                e.preventDefault();
+            }
+            else {
+                beforeVal = this.value;
+            }
+
+        }
+        document.querySelector('#input-text').onkeyup = function () {
+            if (!/^\d*$/.test(this.value)) {
+                this.value = beforeVal;
+            }
+        }
+        document.querySelector('#input-text').oninput = function  () {
+            console.log(this.value);
+        }
+        document.querySelector('#input-text').addEventListener('compositionend', function () {
+            console.log('c');
+        });
+    </script>
     <script>
         let stepColors = ['#888', '#3c3', '#f33'];
         var stepObj = [

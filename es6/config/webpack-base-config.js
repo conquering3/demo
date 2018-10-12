@@ -17,12 +17,12 @@ let config = {
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'manifest',
-            miniChunks: Infinity
+            name: 'app',
+            minChunks: 3
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'app',
-            chunks: ['app']
+            name: 'manifest',
+            miniChunks: Infinity
         }),
         new ExtractTextPlugin({
             filename: 'css/[name]-[hash:10].css',
@@ -32,13 +32,13 @@ let config = {
             title: 'hello',
             template: 'index.html',
             filename: 'index.html',
-            inject: true,
-            chunksSortMode: function (chunk1, chunk2) { // 模块排序
+            inject: true
+           /*  chunksSortMode: function (chunk1, chunk2) { // 模块排序
                 let order = ['manifest', 'app2', 'app1'];
                 let order1 = order.indexOf(chunk1.names[0]);
                 let order2 = order.indexOf(chunk2.names[0]);
                 return order2 - order1;
-            }
+            } */
         })
     ],
     resolve: {

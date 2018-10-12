@@ -1,4 +1,4 @@
-const path = require('path'),
+const path = require('path'), // 路径函数
     webpack = require('webpack'),
     htmlWebpackPlugin = require('html-webpack-plugin'), // 页面打包
     cleanWebpackPlugin = require('clean-webpack-plugin'),// 清理工具 new cleanWebpackPlugin(['dist'])
@@ -8,8 +8,7 @@ const path = require('path'),
 
 module.exports = {
     entry: {
-        app: './src/js/index.js',
-        bunble: './src/js/bunble.js'
+        app: './src/js/index.js'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -26,21 +25,25 @@ module.exports = {
         new cleanWebpackPlugin(['dist/*']), 
         // 优化插件, 提取引用
         new webpack.optimize.CommonsChunkPlugin({
-            names: ['vendor', 'manifest'],
-            chunks () {
-                return (
-                    module.resource &&
-                    /\.js$/.test(module.resource) &&
-                    module.resource.indexOf(
-                      path.join(__dirname, '../node_modules')
-                    ) === 0
-                )
+            names: 'vendor',
+            minChunks (module) {
+                return module.resource 
+                    && /\.js$/.test(module.resource) 
+                    && module.resource.indexOf(path.join(__dirname, './node_modules')) === 0;
             }
         }),
-        /* new webpack.optimize.CommonsChunkPlugin({
+        new webpack.optimize.CommonsChunkPlugin({
             name: 'manifest',
-            chunks: ['vendor']
-        }), */
+            minChunks: Infinity
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'app',
+            async: 'vendor-async',
+            children: true,
+            minChunks: 3
+        }),
+        // keep module.id stable when vendor modules does not change
+        new webpack.HashedModuleIdsPlugin(),
         new ExtractTextPlugin('css/app-[hash:8].css'), // css单独文件提取
         new UglifyJSPlugin(), // 压缩
         new htmlWebpackPlugin({
