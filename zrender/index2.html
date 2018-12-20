@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test</title>
+    <style>
+        #canvas {
+            width: 600px;
+            height: 600px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas"></div>
+    <button id="reset">reset</button>
+    <script src="zrender.min.js"></script>
+    <script src="pointlineMap.js"></script>
+    <script>
+        var pl = pointlineMap.initCanvas(document.querySelector('#canvas'));
+        pl.loadLine({url: './lines.js'});
+        pl.loadPoint({url: './points.js'});
+        pl.enableZoom();
+        pl.enableDrag();
+        document.querySelector('#reset').onclick = function () {
+            pl.reset();
+        }
+    </script>
+</body>
+</html>

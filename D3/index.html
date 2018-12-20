@@ -65,14 +65,12 @@ var yAxis = d3.svg.axis()
     .orient("right")
     .tickSize(-width)
     .tickFormat(function(d) { return Math.round(d / 1e6) + "M"; });
-
 // An SVG element with a bottom-right origin.
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
 // A sliding container to hold the bars by birthyear.
 var birthyears = svg.append("g")
     .attr("class", "birthyears");
@@ -86,7 +84,7 @@ var title = svg.append("text")
 d3.csv("population.csv", function(error, data) {
 
   // Convert strings to numbers.
-  console.log(data);
+  // console.log(data);
   data.forEach(function(d) {
     d.people = +d.people;
     d.year = +d.year;
@@ -101,6 +99,7 @@ d3.csv("population.csv", function(error, data) {
 
   // Update the scale domains.
   x.domain([year1 - age1, year1]);
+  console.log(x);
   y.domain([0, d3.max(data, function(d) { return d.people; })]);
 
   // Produce a map from year and birthyear to [male, female].
@@ -193,7 +192,7 @@ d3.csv("population.csv", function(error, data) {
     data.push(tempObj);
   }
   var arr = new Array(8);
-  console.log(arr.join('0'));
-  console.log(arr.length);
-  console.log(data);
+  // console.log(arr.join('0'));
+  // console.log(arr.length);
+  // cosole.log(data);
 </script>

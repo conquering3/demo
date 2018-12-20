@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.11/lodash.js"></script>
+    <script>
+        console.log(_.isLength(1000000));
+        console.log(_.isFinite(Number.MAX_VALUE));
+        console.log(_.now());
+        var done = _.debounce(function () {
+            console.log(3124);
+        }, 300);
+        done();
+        done();
+        done();
+        var fliped = _.flip(function () {
+            console.log(arguments);
+        });
+        fliped(1,2,3,4,5,6);
+    </script>
+</body>
+</html>
