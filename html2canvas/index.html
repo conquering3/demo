@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 500px;
+            height: 500px;
+            background-color: #f00;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <div class="canvas"></div>
+    <script src="./html2canvas.min.js"></script>
+    <script src="./jsPDF.min.js"></script>
+    <script>
+        html2canvas(document.querySelector('.box')).then(function (canvas) {
+            console.log('123', canvas);
+            document.querySelector('.canvas').appendChild(canvas);
+            
+            var doc = new jsPDF("p", "mm", "a4");
+            doc.addImage(canvas.toDataURL('img/jpeg'),'jpeg', 40, 40, 200, 200);
+            doc.save('img.pdf');
+        });
+
+       /*  html2canvas(document.querySelector('.box'), {
+            onrendered: function (canvas) {
+            }
+        }); */
+        
+    </script>
+</body>
+</html>

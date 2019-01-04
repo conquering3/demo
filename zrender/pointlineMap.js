@@ -35,7 +35,8 @@
                 textfill: '#333',
                 direction: 'bottom',
                 fontSize: 10,
-                color: '#f0f'
+                color: '#f0f',
+                transfromText: true
             }
         },
         line: {
@@ -44,8 +45,8 @@
             strokeColor: '#f00',
             lineWidth: 3,
             lineStyle: 'normal',
-            smooth: 1,
-            smoothConstraint: [[0, 0], [100, 450]],
+            smooth: 'spline',
+            smoothConstraint: [[100,400], [100, 400]],
             text: {
             }
         }
@@ -69,9 +70,9 @@
         zrLineGroup = [],
         zrTextGroup = [],
         dragging = false,
-        currentPosition = [0, 0],
         currentX = 0,
         currentY = 0,
+        origin = [0, 0],
         handle; // init 之后的接口
     
     handle = {
@@ -110,14 +111,14 @@
 
                             zrPointGroup[i].data.push({
                                 pointId: m,
-                                position: point.position,
+                                position: [point.position[0], point.position[1]],
                                 zPoint: zPoint,
-                                zText: zText
+                                zText: zText,
                             });
                             zr.add(zPoint);
                             zrTextGroup[i].data.push({
                                 textId: m,
-                                position: point.position,
+                                position: [point.position[0], point.position[1]],
                                 zText: zText
                             })
                             zr.add(zText);
@@ -254,7 +255,8 @@
         var canvasW,
             canvasH,
             scaleX,
-            scaleY;
+            scaleY,
+            nowScale;
 
     
         canvasW = zr.getWidth();
@@ -269,33 +271,38 @@
                 zr.remove(line.zLine);
             });
         }); */
-
+        nowScale = defaultStyle.scale;
         if (ze.wheelDelta > 0) {
-            scaleX = defaultStyle.scale[0] + 0.2;
-            scaleY = defaultStyle.scale[1] + 0.2;
+            scaleX = nowScale[0] + 0.2;
+            scaleY = nowScale[1] + 0.2;
 
             scaleX = scaleX > defaultStyle.scaleMax? defaultStyle.scaleMax: scaleX;
             scaleY = scaleY > defaultStyle.scaleMax? defaultStyle.scaleMax: scaleY;
         }
         else {
-            scaleX = defaultStyle.scale[0] - 0.2;
-            scaleY = defaultStyle.scale[1] - 0.2;
+            scaleX = nowScale[0] - 0.2;
+            scaleY = nowScale[1] - 0.2;
 
             scaleX = scaleX < defaultStyle.scaleMin? defaultStyle.scaleMin: scaleX;
             scaleY = scaleY < defaultStyle.scaleMin? defaultStyle.scaleMin: scaleY;
+            
         }
         defaultStyle.scale = [scaleX, scaleY];
-        updateCanvas(zrLineGroup, 'zLine', {
+        /* updateCanvas(zrLineGroup, 'zLine', {
             origin: [ze.offsetX, ze.offsetY],
-            scale: [scaleX, scaleY]
-        });
+            scale: [scaleX, scaleY],
+            beforeScale: nowScale
+        }, [ze.offsetX, ze.offsetY]);
         updateCanvas(zrPointGroup, 'zPoint', {
             origin: [ze.offsetX, ze.offsetY],
-            scale: [scaleX, scaleY]
-        });
+            scale: [scaleX, scaleY],
+            beforeScale: nowScale
+        }); */
         updateCanvas(zrTextGroup, 'zText', {
-            origin: [ze.offsetX, ze.offsetY],
-            scale: [scaleX, scaleY]
+            scale: [scaleX, scaleY],
+        }, {
+            offset: [ze.offsetX, ze.offsetY],
+            beforeScale: nowScale
         });
     }
 
@@ -314,14 +321,12 @@
         if (!dragging) {
             return;
         }
-        var position = [currentPosition[0] + ze.offsetX - currentX, currentPosition[1] + ze.offsetY - currentY];
-
+        var move = [ze.offsetX - currentX, ze.offsetY - currentY];
         currentX = ze.offsetX;
         currentY = ze.offsetY;
-        currentPosition = position;
-
-        updateCanvas(zrPointGroup, 'zPoint', {position: position});
-        updateCanvas(zrLineGroup, 'zLine', {position: position});
+        updateCanvas(zrPointGroup, 'zPoint', {move: move});
+        updateCanvas(zrLineGroup, 'zLine', {move: move});
+        updateCanvas(zrTextGroup, 'zText', {move: move});
     }
 
     /**
@@ -338,11 +343,12 @@
                         fill: newPoint.fillColor,
                         stroke: newPoint.strokeColor,
                         lineWidth: newPoint.lineWidth,
-                        text: point.name,
+                       //  text: point.name,
                         fontSize: newPoint.text.fontSize,
                         textAlign: newPoint.text.textAlign,
                         textFill: newPoint.text.color,
                         textPosition: newPoint.text.direction,
+                        transformText: newPoint.text.transformText
                     },
                     shape: {
                         cx: newPoint.position[0],
@@ -395,7 +401,7 @@
                         // textLineHeight: 20,
                         textFill: '#f0f',
                         fontSize: 10,
-                        textBackgroundColor: '#ddd',
+                        // textBackgroundColor: '#ddd',
                         textAlign: 'center',
                         // textVerticalAlign: 'top',
                     },
@@ -412,11 +418,25 @@
      * @param {String} type zPoint/zLine
      * @param {Object} option update option
      */
-    function updateCanvas (data, type, option) {
+    function updateCanvas (data, type, option, option2) {
         data.map(function (group) {
             group.data.map(function (item) {
-                console.log(item);
+                var cPosition = item[type].position;
+
+                    if (option.move) {
+                        option.position  = [cPosition[0] + option.move[0], cPosition[1] + option.move[1]];
+                    }
+                    else {
+                        option.origin = [
+                            option2.offset[0]*(option.scale[0] - option2.beforeScale[0]) + origin[0],
+                            option2.offset[1]*(option.scale[1] - option2.beforeScale[1]) + origin[1]
+                        ];
+                        if (type == 'zText') {
+                            option.position = [item.position[0]*option.scale[0], item.position[1]*option.scale[1]]
+                        }
+                    }
                 item[type].attr(option);
+                // item[type].transform = [2, 0, 0, 2, 2, 2];
             });
         });
     }
