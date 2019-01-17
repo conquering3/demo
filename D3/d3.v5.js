@@ -16984,6 +16984,7 @@
         return y * this.k + this.y;
       },
       invert: function(location) {
+        console.log(this.k);
         return [(location[0] - this.x) / this.k, (location[1] - this.y) / this.k];
       },
       invertX: function(x) {
@@ -17051,6 +17052,7 @@
     }
     
     function defaultConstrain(transform, extent, translateExtent) {
+      // console.log(transform, extent, translateExtent);
       var dx0 = transform.invertX(extent[0][0]) - translateExtent[0][0],
           dx1 = transform.invertX(extent[1][0]) - translateExtent[1][0],
           dy0 = transform.invertY(extent[0][1]) - translateExtent[0][1],
@@ -17078,7 +17080,6 @@
           touchDelay = 500,
           wheelDelay = 150,
           clickDistance2 = 0;
-    
       function zoom(selection$$1) {
         selection$$1
             .property("__zoom", defaultTransform)
@@ -17210,6 +17211,7 @@
           return this;
         },
         zoom: function(key, transform) {
+          console.log(transform.x, transform.y);
           if (this.mouse && key !== "mouse") this.mouse[1] = transform.invert(this.mouse[0]);
           if (this.touch0 && key !== "touch") this.touch0[1] = transform.invert(this.touch0[0]);
           if (this.touch1 && key !== "touch") this.touch1[1] = transform.invert(this.touch1[0]);
@@ -17233,13 +17235,14 @@
       function wheeled() {
         if (!filter.apply(this, arguments)) return;
         var g = gesture(this, arguments),
-            t = this.__zoom,
+            t = this.__zoom, // 初始化transform{k, x, y}
             k = Math.max(scaleExtent[0], Math.min(scaleExtent[1], t.k * Math.pow(2, wheelDelta.apply(this, arguments)))),
-            p = mouse(this);
-    
+            p = mouse(this); // 鼠标位置
+
         // If the mouse is in the same location as before, reuse it.
         // If there were recent wheel events, reset the wheel idle timeout.
         if (g.wheel) {
+          // 节流, 定时器对象
           if (g.mouse[0][0] !== p[0] || g.mouse[0][1] !== p[1]) {
             g.mouse[1] = t.invert(g.mouse[0] = p);
           }
@@ -17247,6 +17250,7 @@
         }
     
         // If this wheel event won’t trigger a transform change, ignore it.
+        
         else if (t.k === k) return;
     
         // Otherwise, capture the mouse point and location at the start.
@@ -17255,7 +17259,6 @@
           interrupt(this);
           g.start();
         }
-    
         noevent$2();
         g.wheel = setTimeout(wheelidled, wheelDelay);
         g.zoom("mouse", constrain(translate(scale(t, k), g.mouse[0], g.mouse[1]), g.extent, translateExtent));

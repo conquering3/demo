@@ -5,8 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        .box {
+            overflow: hidden;
+            height: 200px;
+        }
+        .a {
+            overflow: hidden;
+            background-color: #f00;
+        }
+        .b {
+            float: right;
+            height: 100px;
+            margin-left: 10px;
+            background-color: #0f0;
+        }
+    </style>
 </head>
 <body>
+    <div class="box">
+        <div class="b">312314eqw</div>
+        <div class="a">3214</div>
+    </div>
     network online:<p id="show-network"></p>
     <script>
         var netWorkDom = document.querySelector('#show-network');

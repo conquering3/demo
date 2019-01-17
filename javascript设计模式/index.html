@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 宏命令
+        /* var MacroCommand = function () {
+            return {
+                commandList: [],
+                add: function (command) {
+                    this.commandList.push(command);
+                },
+                execute: function () {
+                    this.commandList.map(function (command) {
+                        command.execute();
+                    });
+                }
+            }
+        };
+        var openLightCommand = {
+            execute: function () {
+                console.log('open light');
+            }
+        };
+        var macroCommand = MacroCommand();
+        macroCommand.add(openLightCommand);
+
+        var macroCommand1 = MacroCommand();
+        macroCommand1.add(macroCommand);
+        macroCommand1.execute(); */
+
+        // AOP实现职责链
+        var orderOne = function (a, b, c) {
+            return true;
+        }
+        Function.prototype.after = function (fn) {
+            var self = this;
+            return function () {
+                console.log(arguments);
+                var ret = self.apply(this, arguments);
+                ret? fn.apply(this, arguments): ret;
+            }
+        }
+        var order = orderOne.after(function () {
+            console.log('after');
+        });
+        order(1,2,3);
+        var arr = [2,3,4]
+        for(var i = 0, owner; owner = arr[i], i < arr.length; i++) {
+            console.log(owner);
+            // console.log(owner);
+        }
+        </script>
+        <object type="application/x-shockwave-flash"></object>
+        <iframe src="http://47.93.151.56:83/BridgeRecord/BridgeArchive.aspx?BridgeId=5884&StructTypeId=1&nmath=0.7024848235150765" frameborder="0" width=1000 height=800>
+
+        </iframe>
+</body>
+</html>

@@ -118,5 +118,17 @@
         zr.add(t1);
         zr.add(t2);
     </script>
+    <script>
+        window.name = 'window';
+        var obj = {
+            name: 'obj',
+            getName: function () {
+                return this.name;
+            }
+        }
+        var getName = obj.getName;
+        console.log(getName());
+        console.log(obj.getName());
+    </script>
     </body>
 </html>
