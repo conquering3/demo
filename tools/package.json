@@ -1,0 +1,16 @@
+{
+  "name": "gs-tools",
+  "version": "0.0.1",
+  "description": "general tools collection",
+  "main": "gs-tools.js",
+  "keywords": [
+    "gs-tools",
+    "general"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "conquering3",
+  "email": "conquering3@163.com",
+  "license": "ISC"
+}

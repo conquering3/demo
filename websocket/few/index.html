@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <script>
-        (function () {
-            if (!'WebSocket' in window) {
-                alert('您的浏览器不支持WebSocket,请更换浏览器!');
-                return;
-            }
-            var ws = new WebSocket('ws://localhost:8888/123');
-            ws.onopen = function () {
-                ws.send('我来自客户端!');
-            }
-            ws.onmessage = function (message) {
-                console.log(message);
-                ws.close();
-                ws.send('我来自客户端2!');
-            }
-            ws.onclose = function () {
-                console.log();
-            }
-        })();
-    </script>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            (function() {
+                if (!"WebSocket" in window) {
+                    alert("您的浏览器不支持WebSocket,请更换浏览器!");
+                    return;
+                }
+                var ws = new WebSocket("ws://localhost:8888/123");
+                ws.onopen = function() {
+                    ws.send("我来自客户端!");
+                };
+                ws.onmessage = function(message) {
+                    console.log(message);
+                    ws.close();
+                    ws.send("我来自客户端2!");
+                };
+                ws.onclose = function() {
+                    console.log();
+                };
+                ws.onerror = function() {};
+            })();
+        </script>
+    </body>
 </html>

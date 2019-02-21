@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>d3运用</title>
+        <style>
+            .container {
+                text-align: right;
+            }
+        </style>
+    </head>
+    <body>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <div class="container">
+        </div>
+        <script src="d3.v5.js"></script>
+        <script>
+            var p = d3
+                .selectAll("p")
+                .data(["red", "green", "yellow", "hello"])
+                .text(function(d) {
+                    return d;
+                })
+                .attr("data-id", function(d) {
+                    return d;
+                })
+                .transition()
+                .duration(1000)
+                .style("background-color", function(d) {
+                    return d;
+                });
+
+            var container = d3
+                .select('.container')
+                .selectAll('p')
+                .data([100, 200, 300, 400, 500, 600])
+                .enter()
+                .append('p')
+                .text(function (d) {return d})
+                .style('width', function(d) {return d + 'px'})
+                .style("background-color", 'red');
+
+            var data = [1, 0, 2, 5, 4];
+            // array
+            console.log('data: ', data);
+            console.log('min: ', d3.min(data));
+            console.log('max: ', d3.max(data));
+            console.log('sum: ', d3.sum(data));
+            console.log('median: ', d3.median(data)); // 中位数
+            console.log('extend: ', d3.extent(data)); // 最小最大值
+            console.log('quantile: ', d3.quantile(data));
+            console.log('variance: ', d3.variance(data));
+            console.log('deviation: ', d3.deviation(data));
+
+
+            // search
+            console.log(d3.scan(data, function (a, b) {return b - a}));
+            console.log(d3.range(1, 10));
+            console.log(d3.range(1, 100).map(function (d, i) {return Math.round((1 + i*0.1)*10)/10;}));
+        </script>
+    </body>
+</html>

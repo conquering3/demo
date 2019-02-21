@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <img src="img2.png" alt="">
+        <input type="file" id="input" multiple />
+        <script>
+            var div = document.createElement("div");
+            var fr = new FileReader();
+
+            fr.onload = function(e) {};
+
+            document.querySelector("#input").onchange = function() {
+                var srcs = [];
+
+                [].slice.call(this.files).map(function(file) {
+                    srcs.push(window.URL.createObjectURL(file));
+                });
+                if (srcs.length) {
+                    srcs.map(function(src) {
+                        var img = document.createElement("img");
+                        img.src = src;
+                        div.appendChild(img);
+                        // 释放createObjectURL实例
+                        img.onload = function() {
+                            // window.URL.revokeObjectURL(src)
+                        };
+                    });
+                    document.querySelector("body").appendChild(div);
+                }
+            };
+        </script>
+        <script>
+            var db;
+            var request = window.indexedDB.open("text1", 1);
+            var tables = ['person'];
+
+            request.onsuccess = function(e) {
+                console.log("success: ", e);
+                // 打开存在数据库
+                db = request.result;
+                // 设置数据表
+                var addData = addDataTable('person');
+
+                // 插入数据
+                addData({id: 1, name: 'xiaoming1', email: 'xiaoming@sibat.cn'});
+                addData({id: 2, name: 'xiaoming2', email: 'xiaoming@sibat.cn'});
+                addData({id: 3, name: 'xiaoming3', email: 'xiaoming@sibat.cn'});
+
+                // 获取数据表的存储对象
+                var dbTrans = db.transaction(['person'], 'readwrite');
+                var objectStore = dbTrans.objectStore('person');
+
+                // 获取数据
+                // 获取所有主键值
+                var getAllRequest = objectStore.getAll();
+                getAllRequest.onsuccess = function () {
+                    var data = getAllRequest.result;
+                    console.log(data);
+                }
+                // 遍历数据 
+                var data = [];
+                objectStore.openCursor().onsuccess = function (e) {
+                    var cursor = e.target.result;
+                    if (cursor) {
+                        data.push(cursor.value);
+                        cursor.continue();
+                    }
+                    else {
+                        console.log(data);
+                    }
+                }
+                
+                // 索引
+                var indexName = objectStore.index('name');
+                indexName.getAll('xiaoming3').onsuccess = function (e) {
+                    console.log(e);
+                }
+            };
+
+
+
+            // 新增数据
+            function addDataTable(table) {
+                var dbTrans = db.transaction([table], 'readwrite');
+                var objectStore = dbTrans.objectStore(table);
+
+                return function () {
+                    for (var i = 0, arg; arg = arguments[i++];) {
+                        if (arg instanceof Array) {
+                            arg.map(function (item) {
+                                objectStore.add(item);
+                            });
+                        } else {
+                            objectStore.add(arg);
+                        }
+                    }
+                }
+            }
+
+            request.onupgradeneeded = function(e) {
+                console.log("upgradeneeded: ", e);
+                db = request.result;
+                // 创建表
+                tables.map(function (table) {
+                    if (!db.objectStoreNames.contains(table)) {
+                        // keyPath 为表得主键
+                        var objectStore = db.createObjectStore(table, {
+                            keyPath: 'id'
+                        });
+                        objectStore.createIndex('name', 'name', {unique: false});
+                        // console.log(objectStore);
+                        // 设置主键自动生成
+                        // var objectStore = db.createObjectStore('person', {autoIncrement: true});
+                    }
+                });
+            };
+            request.onerror = function(e) {
+                console.log("error: ", e);
+            };
+            request.onblocked = function(e) {
+                console.log("blocked: ", e);
+            };
+
+            // 删除数据库
+            /* var dbDeleteRequest = window.indexedDB.deleteDatabase("text");
+            dbDeleteRequest.onsuccess = function(e) {
+                console.log("delete db success: ", e);
+            };
+            dbDeleteRequest.onerror = function(e) {
+                console.log("delete db error: ", e);
+            }; */
+        </script>
+    </body>
+</html>

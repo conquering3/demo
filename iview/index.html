@@ -8,11 +8,17 @@
     <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
 </head>
 <body>
+<textarea name="" id="area" cols="30" rows="10"></textarea>
 <div id="app">
     <i-button @click="show">Click me!</i-button>
     <Modal v-model="visible" title="Welcome">Welcome to iView</Modal>
 </div>
 <script>
+    var str = 'abc\ndasd\ndasd\n';
+    console.log(str.split('\n'));
+    document.querySelector('#area').onkeypress = function () {
+        console.log(/\n/.test(this.value));
+    }
     new Vue({
         el: '#app',
         data: {

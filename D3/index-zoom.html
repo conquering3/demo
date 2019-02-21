@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>d3-zoom</title>
+        <style>
+            #canvas {
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.1/d3.js"></script>
+        <script>
+            (function(d3) {
+                var canvas = d3.select("#canvas");
+                var context = canvas.node().getContext("2d");
+                var zoom = d3.zoom();
+                var transform = d3.zoomIdentity;
+                var width = 400,
+                    height = 400;
+
+                canvas.attr("width", width).attr("height", height);
+                canvas.call(zoom);
+                // canvas.transition().duration(1000).call(d3.transform, transform);
+                zoom
+                    .scaleExtent([0.5, 2]) // scale 范围
+                    // .translateExtent([[0, 0], [200, 200]]) // translate 范围
+                    .on("zoom", zoomEvent); // drag/wheel zoom 事件
+                    render();
+
+                    
+                    // 设置canvas的 transfrom,translate,scale 相关属性
+                    // canvas.call(zoom.transform, {k: 1, x: -50, y: -50});
+                    // zoom.transform(, {k: 1, x: -50, y: -50}); // 设置 transform,
+                    console.log(d3.zoomTransfrom);
+                // zoomEvent
+                function zoomEvent(e) {
+                    transform = d3.event.transform;
+                    render();
+                }
+
+                // render 
+                function render () {
+                    context.save();
+                    context.clearRect(0, 0, width, height);
+                    context.beginPath();
+                    context.translate(transform.x, transform.y);
+                    context.scale(transform.k, transform.k);
+                    drawCircle([100, 100], 20);
+                    drawCircle([200, 200], 30);
+                    context.closePath();
+                    context.stroke();
+                    context.restore();
+                }
+                // draw a Circle
+                // [Number] point
+                // number radius
+                function drawCircle(point, radius) {
+                    context.moveTo(point[0] + radius, point[1]);
+                    context.arc(point[0], point[1], radius, 0, 2 * Math.PI);
+                }
+            })(d3);
+        </script>
+    </body>
+</html>

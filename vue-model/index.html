@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="el">
+        <h1>{{title}}</h1>
+        <input type="text" v-model="input">
+        <p>2313</p>
+        <div>
+            {{input}}
+            <input type="text" v-model="input">
+            <p id="level">
+                {{input}}
+                <span>{{input2}}</span>
+                <p><input type="text" v-model="input2"></p>
+            </p>
+        </div>
+    </div>
+    <div id="box">
+        3123
+        <span>231</span>
+        <span>3124</span>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: 'el',
+            data: {
+                title: '观察者模式',
+                input: '测试成功',
+                input2: '3213',
+                msg: 'level'
+            }
+        });
+    </script>
+</body>
+</html>
