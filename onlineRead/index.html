@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" id="input">
+    <script>
+        document.querySelector('#input').onchange = function () {
+            if (this.files.length) {
+                var fd = new FormData(),
+                    xhr = new XMLHttpRequest();
+
+                fd.append('filename', this.files[0]);
+                fd.append('name', '__RequestVerificationToken');
+                fd.append('name', 'noFresh');
+                console.log(fd);
+
+                xhr.open('POST', 'http://www.officeweb365.com/Default/Docview', true);
+                // xhr.setRequestHeader('Content-Type', 'multiple/form-data');
+                xhr.send(fd);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status == 200) {
+                        console.log(xhr.response);
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

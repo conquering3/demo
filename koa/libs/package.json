@@ -1,0 +1,7 @@
+{
+  "name": "console-status",
+  "version": "1.0.0",
+  "description": "set console log warn error output time and status",
+  "main": "consoleStatus.js",
+  "license": "MIT"
+}
