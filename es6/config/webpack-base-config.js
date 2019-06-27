@@ -6,7 +6,6 @@ let webpack = require('webpack'),
 let config = {
     entry: {
         app: ['babel-polyfill', path.resolve(__dirname, '../src/js/app.js')],
-        app2: [path.resolve(__dirname, '../src/js/app2.js')]
     },
     output: {
         publicPath: '/',

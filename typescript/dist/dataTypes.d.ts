@@ -1,0 +1,10 @@
+declare let isBoolean: boolean;
+declare let createdByNewBoolean: boolean;
+declare let decLiteral: number;
+declare let myName: string;
+declare function alertName(): void;
+declare let u: undefined;
+declare let n: null;
+declare let anyVar: any;
+declare let myFavoriteNumber: string | number;
+declare function getLength(something: string | number): number;

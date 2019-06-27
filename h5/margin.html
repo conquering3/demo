@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .box1,
+        .box2 {
+            border: 1px solid #f00;
+            box-sizing: border-box;
+        }
+        .box1 {
+            display: block;
+            position: relative;
+            width: 200px;
+            overflow: hidden;
+            background-color: #f00;
+        }
+        .box2 {
+            max-height: 200px;
+            padding: 10px;
+            overflow: scroll;
+            background-color: #f0f;
+            margin-bottom: -17px;
+        }
+        .box3 {
+            height: 300px;
+            background-color: #0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box1">
+            <div class="box2" >
+                <div class="box3"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -22,7 +22,7 @@ let config = {
         overlay: { warnings: false, errors: true }
         
     },
-    devtool: '#cheap-eval-source-map',
+    devtool: 'eval-source-map',
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.

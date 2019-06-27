@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/> -->
+    <style>
+        .multi-select {
+            background-color: #f33!important;
+        }
+        .handle {
+            background-color: #0f0!important;
+        }
+        .filter {
+            background-color: #00f!important;
+        }
+        .items-w,
+        .items-w2 {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-direction: row;
+        }
+        .items-w li,
+        .items-w2 li {
+            flex-grow: 1;
+            border: 1px solid #999;
+            line-height: 40px;
+            background-color: #ccc;
+        }
+        .ghost-calss {
+            background-color: #ff0!important;
+        }
+        .chosen-class {
+            background-color: #0ff!important;
+        }
+    </style>
+</head>
+<body>
+    <ul class="items-w">
+        <li class="handle">item1</li>
+        <li>item2</li>
+        <li>item3</li>
+        <li>item4</li>
+        <li>item5</li>
+    </ul>
+    <ul class="items-w2">
+            <li>item1</li>
+            <li>item2</li>
+            <li>item3</li>
+            <li>item4</li>
+            <li class="filter">item5</li>
+        </ul>
+    <script src="./node_modules/sortablejs/Sortable.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

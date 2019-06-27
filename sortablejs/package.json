@@ -1,0 +1,9 @@
+{
+  "name": "sortablejs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "sortablejs": "^1.10.0-rc3"
+  }
+}

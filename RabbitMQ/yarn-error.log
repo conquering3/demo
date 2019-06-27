@@ -1,0 +1,36 @@
+Arguments: 
+  D:\installTools\nodejs\node.exe D:\installTools\nodejs\node_modules\yarn\bin\yarn.js add amqlib
+
+PATH: 
+  C:\Program Files\Hardwipe\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\installTools\nodejs\;D:\installTools\nodejs\node_modules\;C:\Program Files\Git\cmd;D:\installTools\Java\jdk1.8.0_144\bin;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\TortoiseSVN\bin;D:\installTools\Java\jdk1.8.0_144\bin;D:\installTools\Java\jdk1.8.0_144\lib;C:\Program Files\OpenVPN\bin;%JAVA_HOME%\bin;%JAVA_HOME%\lib;C:\Users\conquering3\AppData\Local\Microsoft\WindowsApps;;C:\Program Files\Microsoft VS Code\bin
+
+Yarn version: 
+  1.15.2
+
+Node version: 
+  10.15.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: http://registry.npmjs.org/amqlib: Not found
+      at Request.params.callback [as _callback] (D:\installTools\nodejs\node_modules\yarn\lib\cli.js:66058:18)
+      at Request.self.callback (D:\installTools\nodejs\node_modules\yarn\lib\cli.js:129541:22)
+      at Request.emit (events.js:189:13)
+      at Request.<anonymous> (D:\installTools\nodejs\node_modules\yarn\lib\cli.js:130513:10)
+      at Request.emit (events.js:189:13)
+      at IncomingMessage.<anonymous> (D:\installTools\nodejs\node_modules\yarn\lib\cli.js:130435:12)
+      at Object.onceWrapper (events.js:277:13)
+      at IncomingMessage.emit (events.js:194:15)
+      at endReadableNT (_stream_readable.js:1103:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
