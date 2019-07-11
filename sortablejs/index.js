@@ -33,7 +33,6 @@
         group: 'items-w',
         filter: '.filter',
         ghostClass: 'ghost-calss',
-        
         chosenClass: 'chosen-class',
         animation: 150,
         onEnd (e) {

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge;chrome=1">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        #canvas {
+            border: 1px solid #ccc;
+        }
+        #img {
+            width: 80px;
+            height: 80px;
+        }
+        #box {
+            display: table;
+            width: 200px;
+            height: 200px;
+        }
+        .cell {
+            display: table-cell;
+            width: 20px;
+            height: 10px;
+            vertical-align: middle;
+        }
+        .img-w {
+            position: relative;
+            display: inline-block;
+        }
+        img {
+            vertical-align: top;
+        }
+        .vr {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            top: 50%;
+            left: 0;
+            margin-top: -1px;
+            background-color: #f00;
+        }
+    </style>
+</head>
+<body>
+    <label id="box">
+        <img src="" alt="icon" class="cell">
+    </label>
+    <div class="img-w">
+        <img id="img" src="" alt="">
+        <div class="vr"></div>
+    </div>
+    <script src="./index.js"></script>
+    <script>
+       /*  (function () {
+            var img = document.getElementById('img');
+            var width = 200;
+            var height = 200;
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+            canvas.width = width;
+            canvas.height = height;
+            if (!ctx) {
+                alert('浏览器不支持canvas!');
+                return;
+            }
+            ctx.fillStyle = '#00a';
+            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = '#f00';
+            ctx.font = '26px yahei';
+            ctx.textAlign = 'center';
+            ctx.fillText("Hello world", width/2, height/2);
+            img.src = canvas.toDataURL(ctx);
+        })(); */
+        document.getElementById('img').src = textToDatabase64({
+            text: 'E'
+        });
+    </script>
+</body>
+</html>

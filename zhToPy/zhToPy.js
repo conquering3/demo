@@ -9,6 +9,7 @@
         root.zhToPy = factory();
     }
 })(this, function () {
+    // 解析列表
     var pinyin = {
         a: '\u554a\u963f\u9515',
         ai: '\u57c3\u6328\u54ce\u5509\u54c0\u7691\u764c\u853c\u77ee\u827e\u788d\u7231\u9698\u8bf6\u6371\u55f3\u55cc\u5ad2\u7477\u66a7\u7839\u953f\u972d',
@@ -420,6 +421,11 @@
             key: pinyin[key]
         });
     };
+    /**
+     * 中文转拼音
+     * @param {String} str 文本
+     * @param {Boolean} boolean true 文本首字母， flase, 所有拼音
+     */
     var convert = function (str, boolean) {
         if (Object.prototype.toString.call(str) != '[object String]') {
             console.error('str is not a string!');

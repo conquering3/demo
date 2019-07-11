@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        <style>
+            .box {
+                position: relative;
+                display: inline-block;
+                border: 1px solid #fd0;
+            }
+            .vr {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                width:100%;
+                height: 2px;
+                margin-top: -1px;
+                background-color: #f00;
+            }
+        </style>
+    </head>
+
+    <body>
+            <canvas width="700" height="300" id="canvasOne" class="canvasOne"></canvas>
+        <script>
+            var cancasOne = document.getElementById('canvasOne');
+            var ctx = cancasOne.getContext('2d');
+            var text = '日日日日',
+                textMetrics,
+                square_width = 20,
+                font_height = 128;
+            //画网线
+            function drawGrid(color, stepx, stepy) {
+                ctx.save();
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 0.5;
+                ctx.fillStyle = '#0f0';
+                ctx.fillRect(0, 0, canvasOne.width, canvasOne.height);
+                //画竖线
+                for (var i = stepx + 0.5; i < canvasOne.width; i += stepx) {
+                    ctx.beginPath();
+                    ctx.moveTo(i, 0);
+                    ctx.lineTo(i, canvasOne.height);
+                    ctx.stroke();
+                }
+                //画横线
+                for (var i = stepx + 0.5; i < canvasOne.height; i += stepy) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, i);
+                    ctx.lineTo(canvasOne.width, i);
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+            //画文本
+            function drawText() {
+                ctx.fillStyle = 'orange';
+                ctx.strokeStyle = 'cornflowerblue';
+                ctx.fillText(text, canvasOne.width / 2,
+                    canvasOne.height / 2);
+                ctx.strokeText(text, canvasOne.width / 2,
+                    cancasOne.height / 2);
+            }
+            //画中间的小正方形
+            function drawCenterSquare() {
+                ctx.fillStyle = 'rgba(255,0,0,0.4)';
+                ctx.strokeStyle = 'black';
+                ctx.fillRect(canvasOne.width / 2 - square_width / 2,
+                    canvasOne.height / 2 - square_width / 2,
+                    square_width, square_width);
+                ctx.strokeRect(canvasOne.width / 2 - square_width / 2,
+                    cancasOne.height / 2 - square_width / 2,
+                    square_width, square_width);
+            }
+            ctx.font = '100px Helvetica';
+            ctx.textBaseline = 'middle'; //设置文本的垂直对齐方式
+            ctx.textAlign = 'center'; //设置文本的水平对齐方式
+            textMetrics = ctx.measureText(text);
+            drawGrid('lightgray', 10, 10);
+            drawText();
+            drawCenterSquare();
+
+        </script>
+    </body>
+
+</html>

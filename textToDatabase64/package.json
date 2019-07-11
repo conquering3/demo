@@ -1,0 +1,12 @@
+{
+    "name": "text-to-db64",
+    "version": "0.0.6",
+    "main": "index.js",
+    "author": {
+        "name": "conquering3",
+        "email": "conquering3@163.com"
+    },
+    "keywords": ["canvas", "database64", "image", "text"],
+    "files": ["index.html"],
+    "license": "MIT"
+}
