@@ -1,0 +1,12 @@
+@import './variables.css';
+@import './base.css';
+@import './layouts/header.css';
+@import './layouts/nav.css';
+
+#app {
+    height: 100px;
+}
+.content-body {
+    margin-left: 200px;
+    margin-top: 70px;
+}

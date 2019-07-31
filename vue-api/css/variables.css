@@ -1,0 +1,7 @@
+:root {
+    --zIndex: 1024;
+    
+    /* bg colors */
+    --bgColor1: #ccc;
+    --bgColor2: #f00;
+}

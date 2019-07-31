@@ -11,23 +11,28 @@
         group: 'items-w',
         animation: 300,
         multiDrag: true,
-        handle: '.handle',
         selectedClass: 'multi-select',
         onEnd (e) {
+            var moveItem = e.to.children[e.newIndex];
+            console.log(sortable.toArray());
+            if (e.from !== e.to) {
+                e.from.insertBefore(moveItem, e.from.children.length && e.from.children[e.oldIndex]);
+            }
+            console.log(sortable.toArray());
             console.log(e);
         },
-        store: {
+        /* store: {
             get (a) {
                 console.log('get:', a);
             },
             set (b) {
                 console.log(b);
             }
-        },
-        onMove (e, originE) {
+        }, */
+        /* onMove (e, originE) {
             console.log(e);
             console.log(originE);
-        }
+        } */
     });
     var sortable2 = new Sortable(document.querySelector('.items-w2'), {
         group: 'items-w',
@@ -38,7 +43,7 @@
         onEnd (e) {
             console.log(e);
         },
-        store: {
+       /*  store: {
             get (a) {
             },
             set (b) {
@@ -47,6 +52,6 @@
         onMove (e, originE) {
             console.log(e);
             console.log(originE);
-        }
+        } */
     });
 })();

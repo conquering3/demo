@@ -1,0 +1,8 @@
+.main-nav {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 200px;
+    height: calc(100% - 70px);
+    background-color: var(--bgColor1);
+}
