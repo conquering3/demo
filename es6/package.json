@@ -36,7 +36,7 @@
     "last 3 iOS versions"
   ],
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-preset-env": "^1.7.0",
     "fs": "^0.0.1-security",
     "lodash": "^4.17.11",
