@@ -39,7 +39,7 @@
     "axios": "^0.18.0",
     "babel-preset-env": "^1.7.0",
     "fs": "^0.0.1-security",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "thunkify": "^2.1.2"
   }
 }
